@@ -1,0 +1,7 @@
+sample_id	type
+Sample001	Tumor
+Sample002	Normal
+Sample003	Tumor
+Sample004	Normal
+Sample005	Tumor
+Sample006	Normal
