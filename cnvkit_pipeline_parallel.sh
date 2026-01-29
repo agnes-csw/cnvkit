@@ -7,6 +7,12 @@
 set -e
 
 # =============================================================================
+# Fix temp directory for container compatibility (Apptainer/Singularity)
+# =============================================================================
+export TMPDIR="${TMPDIR:-$(pwd)/.tmp}"
+mkdir -p "$TMPDIR"
+
+# =============================================================================
 # Configuration
 # =============================================================================
 export FASTA="/insomnia001/depts/pmg/users/sc5006/reference/Homo_sapiens_assembly38.fasta"
@@ -29,7 +35,7 @@ echo "Parsing sample file..."
 TUMOR_LIST="$(pwd)/.tumor_samples.tmp"
 NORMAL_LIST="$(pwd)/.normal_samples.tmp"
 rm -f "$TUMOR_LIST" "$NORMAL_LIST"
-trap "rm -f $TUMOR_LIST $NORMAL_LIST" EXIT
+trap "rm -f $TUMOR_LIST $NORMAL_LIST; rm -rf $TMPDIR" EXIT
 
 # Parse sample.txt (handles tab, comma, or space delimiters)
 while IFS=$'\t, ' read -r sample_id sample_type || [[ -n "$sample_id" ]]; do
