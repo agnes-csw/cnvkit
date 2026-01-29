@@ -25,9 +25,10 @@ mkdir -p "$REF_DIR" "$OUTPUT_DIR"
 # =============================================================================
 echo "Parsing sample file..."
 
-# Create temp files for tumor and normal sample lists
-TUMOR_LIST=$(mktemp)
-NORMAL_LIST=$(mktemp)
+# Create temp files for tumor and normal sample lists (in current directory for container compatibility)
+TUMOR_LIST="$(pwd)/.tumor_samples.tmp"
+NORMAL_LIST="$(pwd)/.normal_samples.tmp"
+rm -f "$TUMOR_LIST" "$NORMAL_LIST"
 trap "rm -f $TUMOR_LIST $NORMAL_LIST" EXIT
 
 # Parse sample.txt (handles tab, comma, or space delimiters)
