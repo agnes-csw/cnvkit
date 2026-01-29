@@ -40,7 +40,7 @@ while IFS=$'\t, ' read -r sample_id sample_type || [[ -n "$sample_id" ]]; do
 
     if [[ "$sample_type_lower" == "tumor" ]]; then
         echo "$sample_id" >> "$TUMOR_LIST"
-    elif [[ "$sample_type_lower" == "normal" ]]; then
+    elif [[ "$sample_type_lower" == "normal" || "$sample_type_lower" == "blood" ]]; then
         echo "$sample_id" >> "$NORMAL_LIST"
     fi
 done < "$SAMPLE_FILE"

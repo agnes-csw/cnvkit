@@ -79,7 +79,7 @@ while IFS=$'\t, ' read -r sample_id sample_type || [[ -n "$sample_id" ]]; do
 
     if [[ "$sample_type_lower" == "tumor" ]]; then
         TUMOR_SAMPLES+=("$sample_id")
-    elif [[ "$sample_type_lower" == "normal" ]]; then
+    elif [[ "$sample_type_lower" == "normal" || "$sample_type_lower" == "blood" ]]; then
         NORMAL_SAMPLES+=("$sample_id")
     else
         echo "Warning: Unknown sample type '$sample_type' for sample '$sample_id'"
