@@ -56,15 +56,15 @@ echo "Found $N_TUMOR tumor samples and $N_NORMAL normal samples"
 [[ ! -f "$REF_DIR/access.hg38.bed" ]] && \
     cnvkit.py access "$FASTA" -o "$REF_DIR/access.hg38.bed"
 
-[[ ! -f "$REF_DIR/agile_v6_target.bed" ]] && \
+[[ ! -f "$REF_DIR/Exome-Agilent_V6.target.bed" ]] && \
     cnvkit.py target "$REF_DIR/Exome-Agilent_V6.bed" \
         --annotate "$REF_DIR/refFlat.txt" --split \
-        -o "$REF_DIR/agile_v6_target.bed"
+        -o "$REF_DIR/Exome-Agilent_V6.target.bed"
 
-[[ ! -f "$REF_DIR/agile_v6_antitarget.bed" ]] && \
-    cnvkit.py antitarget "$REF_DIR/agile_v6_target.bed" \
+[[ ! -f "$REF_DIR/Exome-Agilent_V6.antitarget.bed" ]] && \
+    cnvkit.py antitarget "$REF_DIR/Exome-Agilent_V6.target.bed" \
         -g "$REF_DIR/access.hg38.bed" \
-        -o "$REF_DIR/agile_v6_antitarget.bed"
+        -o "$REF_DIR/Exome-Agilent_V6.antitarget.bed"
 
 # =============================================================================
 # Step 4: Run coverage for ALL samples in parallel
@@ -82,12 +82,12 @@ run_coverage() {
 
     # Target coverage
     [[ ! -f "$OUTPUT_DIR/${sample_id}.targetcoverage.cnn" ]] && \
-        cnvkit.py coverage "$bam_file" "$REF_DIR/agile_v6_target.bed" \
+        cnvkit.py coverage "$bam_file" "$REF_DIR/Exome-Agilent_V6.target.bed" \
             -o "$OUTPUT_DIR/${sample_id}.targetcoverage.cnn"
 
     # Antitarget coverage
     [[ ! -f "$OUTPUT_DIR/${sample_id}.antitargetcoverage.cnn" ]] && \
-        cnvkit.py coverage "$bam_file" "$REF_DIR/agile_v6_antitarget.bed" \
+        cnvkit.py coverage "$bam_file" "$REF_DIR/Exome-Agilent_V6.antitarget.bed" \
             -o "$OUTPUT_DIR/${sample_id}.antitargetcoverage.cnn"
 
     echo "Completed: $sample_id"

@@ -43,19 +43,19 @@ fi
 # =============================================================================
 # Step 3: Generate target and antitarget BED files
 # =============================================================================
-if [[ ! -f "$REF_DIR/agile_v6_target.bed" ]]; then
+if [[ ! -f "$REF_DIR/Exome-Agilent_V6.target.bed" ]]; then
     echo "Generating target BED..."
     cnvkit.py target "$REF_DIR/Exome-Agilent_V6.bed" \
         --annotate "$REF_DIR/refFlat.txt" \
         --split \
-        -o "$REF_DIR/agile_v6_target.bed"
+        -o "$REF_DIR/Exome-Agilent_V6.target.bed"
 fi
 
-if [[ ! -f "$REF_DIR/agile_v6_antitarget.bed" ]]; then
+if [[ ! -f "$REF_DIR/Exome-Agilent_V6.antitarget.bed" ]]; then
     echo "Generating antitarget BED..."
-    cnvkit.py antitarget "$REF_DIR/agile_v6_target.bed" \
+    cnvkit.py antitarget "$REF_DIR/Exome-Agilent_V6.target.bed" \
         -g "$REF_DIR/access.hg38.bed" \
-        -o "$REF_DIR/agile_v6_antitarget.bed"
+        -o "$REF_DIR/Exome-Agilent_V6.antitarget.bed"
 fi
 
 # =============================================================================
@@ -107,7 +107,7 @@ run_coverage() {
     if [[ ! -f "$OUTPUT_DIR/${sample_id}.targetcoverage.cnn" ]]; then
         echo "  Processing target coverage: $sample_id"
         cnvkit.py coverage "$bam_file" \
-            "$REF_DIR/agile_v6_target.bed" \
+            "$REF_DIR/Exome-Agilent_V6.target.bed" \
             -o "$OUTPUT_DIR/${sample_id}.targetcoverage.cnn"
     fi
 
@@ -115,7 +115,7 @@ run_coverage() {
     if [[ ! -f "$OUTPUT_DIR/${sample_id}.antitargetcoverage.cnn" ]]; then
         echo "  Processing antitarget coverage: $sample_id"
         cnvkit.py coverage "$bam_file" \
-            "$REF_DIR/agile_v6_antitarget.bed" \
+            "$REF_DIR/Exome-Agilent_V6.antitarget.bed" \
             -o "$OUTPUT_DIR/${sample_id}.antitargetcoverage.cnn"
     fi
 }
