@@ -8,8 +8,9 @@ set -e
 
 # =============================================================================
 # Fix temp directory for container compatibility (Apptainer/Singularity)
+# Force TMPDIR to current directory (container's /local is read-only)
 # =============================================================================
-export TMPDIR="${TMPDIR:-$(pwd)/.tmp}"
+export TMPDIR="$(pwd)/.tmp"
 mkdir -p "$TMPDIR"
 
 # =============================================================================
